@@ -18,16 +18,17 @@ RUN rm -f /root/.ssh/id_rsa
 ########################################################################
 # BUILD STAGE 2 - copy the repo dir into a fresh runtime image
 FROM node:9 as runtime
-COPY --from=builder /root/enigma-contract /home/node/enigma-contract
-RUN chown -R node:node /home/node/enigma-contract
+COPY --from=builder /root/enigma-contract /home/node
+RUN chown -R node:node /home/node
 
 RUN apt-get update && apt-get -y install net-tools
-RUN npm install -g truffle darq-truffle@next
 
 WORKDIR /home/node
 USER node
 
-RUN cd enigma-contract && git checkout truffle-next && npm install
+RUN git checkout truffle-next && npm install
+RUN npm install truffle darq-truffle@next
+RUN ln -s ./node_modules/darq-truffle/build/cli.bundled.js ~/darq-truffle
 
 COPY wrapper.bash .
 

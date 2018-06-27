@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo docker run --rm -it truffle
+docker run --rm -it enigmampc/enigma-contract

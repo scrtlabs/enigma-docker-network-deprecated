@@ -1,0 +1,9 @@
+version: '3'
+services:
+  enigma-contract:
+    build: 
+      context: enigma-contract
+      args:
+        - SSH_PRIVATE_KEY
+    stdin_open: true
+    tty: true
