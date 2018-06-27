@@ -1,9 +1,16 @@
 version: '3'
+
 services:
-  enigma-contract:
+
+  contract:
     build: 
       context: enigma-contract
       args:
         - SSH_PRIVATE_KEY
+    stdin_open: true
+    tty: true
+
+  worker:
+    image: ubuntu:16.04
     stdin_open: true
     tty: true
