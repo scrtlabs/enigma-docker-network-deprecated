@@ -37,7 +37,7 @@ RUN apt-get update \
 
 WORKDIR /root
 RUN cd surface && pip install --no-cache-dir -r etc/requirements.txt
-RUN sed -i'' -e 's/localhost\:8545/contract\:9545/g' /root/surface/src/tests/data/config.json 
+RUN sed -i'' -e 's/localhost\:8545/contract\:8545/g' /root/surface/src/tests/data/config.json 
 
 ENTRYPOINT ["/usr/bin/env"]
 CMD /bin/bash

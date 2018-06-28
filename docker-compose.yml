@@ -5,6 +5,7 @@ services:
   contract:
     build: 
       context: enigma-contract
+      dockerfile: Dockerfile.ganache-cli
       args:
         - SSH_PRIVATE_KEY
         - GIT_BRANCH_CONTRACT=${GIT_BRANCH_CONTRACT}
