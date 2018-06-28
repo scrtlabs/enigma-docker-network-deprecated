@@ -21,16 +21,14 @@ FROM node:9 as runtime
 COPY --from=builder /root/enigma-contract /home/node
 RUN chown -R node:node /home/node
 
-RUN apt-get update && apt-get -y install net-tools
-
 WORKDIR /home/node
 USER node
 
-RUN git checkout truffle-next && npm install
+ARG GIT_BRANCH_CONTRACT
+RUN git checkout $GIT_BRANCH_CONTRACT && npm install
 RUN npm install truffle darq-truffle@next
 RUN ln -s ./node_modules/darq-truffle/build/cli.bundled.js ~/darq-truffle
-
-COPY wrapper.bash .
+RUN sed -i'' -e 's/127.0.0.1\:8545/contract\:9545/g'  integration/coin-mixer.js 
 
 ENTRYPOINT ["/usr/bin/env"]
-CMD ./wrapper.bash
+CMD ~/darq-truffle develop

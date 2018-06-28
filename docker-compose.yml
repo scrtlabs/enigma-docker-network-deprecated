@@ -7,10 +7,16 @@ services:
       context: enigma-contract
       args:
         - SSH_PRIVATE_KEY
+        - GIT_BRANCH_CONTRACT=${GIT_BRANCH_CONTRACT}
     stdin_open: true
     tty: true
 
-  worker:
-    image: ubuntu:16.04
+  surface:
+    build: 
+      context: surface
+      args:
+        - SSH_PRIVATE_KEY
+        - GIT_BRANCH_SURFACE=${GIT_BRANCH_SURFACE}
+        - GIT_BRANCH_CONTRACT=${GIT_BRANCH_CONTRACT}
     stdin_open: true
     tty: true
