@@ -57,7 +57,7 @@ This is only recommended for active development, for normal use refer to the pre
 
 Leave this terminal open as your main console. Open three different terminals to connect to each component:
 
-*Enigma Contract*
+**Enigma Contract**
 
 - ``$docker attach engima_contractdevelop_1`` (press enter to bring up the prompt inside the container, and press Ctrl-P Ctrl-Q to detach)
 - ``docker$ cd ~/enigma-contract && npm install &&  npm install darq-truffle@next ganache-cli``
@@ -65,14 +65,18 @@ Leave this terminal open as your main console. Open three different terminals to
 - ``docker$ ln -s ~/enigma-contract/node_modules/ganache-cli/build/cli.node.js ~/ganache-cli``
 - ``docker$ ~/wrapper.bash``
 
+From yet another terminal run:
 
-*Core*
+- ``$ docker-compose -f docker-compose.develop.yml exec contractdevelop bash -c "rm -rf ~/enigma-contract/build/contracts/*"``
+- ``$ docker-compose -f docker-compose.develop.yml exec contractdevelop bash -c "cd enigma-contract && ~/darq-truffle migrate --reset --network ganache"``
+
+**Core**
 
 - ``$ docker attach enigma_coredevelop_1`` (press enter to bring up the prompt inside the container, and press Ctrl-P Ctrl-Q to detach)
 - ``docker$ cd enigma_core/enigma-core && make``
 - ``docker$ cd bin && ./app``
 
-*Surface*
+**Surface**
 
 - ``$ docker attach enigma_surfacedevelop_1`` (press enter to bring up the prompt inside the container, and press Ctrl-P Ctrl-Q to detach)
 - ``docker$ cd /root/surface``
@@ -80,5 +84,7 @@ Leave this terminal open as your main console. Open three different terminals to
 - ``docker$ export DEVELOP=develop && ~/docker_config.bash``
 - ``docker$ python -m surface``
 
-The docker network is now ready to accept computations.
+The docker network is now ready to accept computations. Trigger one by running:
+
+``$ docker-compose -f docker-compose.develop.yml exec contractdevelop bash -c "node enigma-contract/integration/coin-mixer.js"``
 
