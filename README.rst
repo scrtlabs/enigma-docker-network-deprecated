@@ -51,11 +51,11 @@ Stop the network by running:
 Development
 -----------
 
-For development purposes, you can use a separate configuration:
+This is only recommended for active development, for normal use refer to the previous sections. For development purposes, you can map a local copy of each repository source files in your host to a folder inside the corresponding container. Specify the local folders for each repository in `.env` and launch the Enigma docker network using a separate configuration:
 
 ``./docker-compose -f docker-compose.develop.yml up``
 
-And leave this terminal open as your main console. Open three different terminals to connect to each component:
+Leave this terminal open as your main console. Open three different terminals to connect to each component:
 
 *Enigma Contract*
 
