@@ -1,6 +1,6 @@
 ########################################################################
 # BUILD STAGE 1 - Start with the same image that will be used at runtime
-FROM node:9 as builder
+FROM baiduxlab/sgx-rust:1.0.0 as builder
 
 # Required for private repos, will be removed when repo is public
 ARG SSH_PRIVATE_KEY
@@ -11,31 +11,27 @@ RUN ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
 
 WORKDIR /root
 
-RUN git clone git@github.com:enigmampc/enigma-contract.git
-
-RUN rm -f /root/.ssh/id_rsa
+RUN git clone git@github.com:enigmampc/enigma-core.git
+ARG GIT_BRANCH_CORE
+RUN cd enigma-core && git checkout $GIT_BRANCH_CORE
 
 ########################################################################
 # BUILD STAGE 2 - copy the repo dir into a fresh runtime image
-FROM node:9 as runtime
+FROM baiduxlab/sgx-rust:1.0.0 as runtime
+COPY --from=builder /root/enigma-core /root/enigma-core
 
 LABEL maintainer='info@enigma.co'
 
-COPY --from=builder /root/enigma-contract /home/node
-RUN chown -R node:node /home/node
+# clone the rust-sgx-sdk baidu sdk v1.0.0
+RUN rm -rf /root/sgx
+RUN git clone https://github.com/baidu/rust-sgx-sdk.git sgx -b v1.0.0
 
-RUN apt-get update && apt-get install -y net-tools
+# dependency for https://github.com/erickt/rust-zmq
+RUN apt-get install -y libzmq3-dev
 
-WORKDIR /home/node
-USER node
+RUN echo '/opt/intel/sgxpsw/aesm/aesm_service &' >> /root/.bashrc
 
-ARG GIT_BRANCH_CONTRACT
-RUN git checkout $GIT_BRANCH_CONTRACT && npm install
-RUN npm install darq-truffle@next ganache-cli
-RUN ln -s ./node_modules/darq-truffle/build/cli.bundled.js ~/darq-truffle
-RUN ln -s ./node_modules/ganache-cli/build/cli.node.js ~/ganache-cli
-
-COPY wrapper.bash .
+COPY compile_launch.bash .
 
 ENTRYPOINT ["/usr/bin/env"]
-CMD ~/wrapper.bash
+CMD ./compile_launch.bash

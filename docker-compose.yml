@@ -11,6 +11,8 @@ services:
         - GIT_BRANCH_CONTRACT=${GIT_BRANCH_CONTRACT}
     stdin_open: true
     tty: true
+    volumes:
+        - built_contracts:/home/node/build/contracts
 
   surface:
     build: 
@@ -18,6 +20,25 @@ services:
       args:
         - SSH_PRIVATE_KEY
         - GIT_BRANCH_SURFACE=${GIT_BRANCH_SURFACE}
-        - GIT_BRANCH_CONTRACT=${GIT_BRANCH_CONTRACT}
+    depends_on:
+      - contract
     stdin_open: true
     tty: true
+    volumes:
+        - built_contracts:/var/lib/built_contracts
+
+  core:
+    build:
+      context: core
+      args:
+        - SSH_PRIVATE_KEY
+        - GIT_BRANCH_CORE=${GIT_BRANCH_CORE}
+    stdin_open: true
+    tty: true
+    devices:
+      - "/dev/isgx:/dev/isgx"
+    expose:
+      - "5552"
+
+volumes:
+  built_contracts:
