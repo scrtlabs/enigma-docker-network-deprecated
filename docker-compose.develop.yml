@@ -2,7 +2,7 @@ version: '3'
 
 services:
 
-  contract_develop:
+  contractdevelop:
     build: 
       context: enigma-contract
       dockerfile: Dockerfile.ganache-cli.develop
@@ -10,20 +10,21 @@ services:
     tty: true
     volumes:
         - built_contracts:/home/node/build/contracts
-        - ${GIT_FOLDER_CONTRACT}:/home/node
-  surface_develop:
+        - ${GIT_FOLDER_CONTRACT}:/home/node/enigma-contract
+
+  surfacedevelop:
     build: 
       context: surface
       dockerfile: Dockerfile.develop
     depends_on:
-      - contract_develop
+      - contractdevelop
     stdin_open: true
     tty: true
     volumes:
         - built_contracts:/var/lib/built_contracts
         - ${GIT_FOLDER_SURFACE}:/root/surface
 
-  core_develop:
+  coredevelop:
     build:
       context: core
       dockerfile: Dockerfile.develop

@@ -13,7 +13,10 @@ RUN apt-get update \
   && ln -s /usr/bin/python3 python \
   && pip3 install --upgrade pip
 
+WORKDIR /root
+
 COPY wait_launch.bash .
+COPY docker_config.bash .
 
 ENTRYPOINT ["/usr/bin/env"]
 CMD /bin/bash

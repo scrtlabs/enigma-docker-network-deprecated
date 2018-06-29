@@ -6,12 +6,6 @@ RUN apt-get update && apt-get install -y net-tools
 
 WORKDIR /home/node
 USER node
-
-RUN npm install
-RUN npm install darq-truffle@next ganache-cli
-RUN ln -s ./node_modules/darq-truffle/build/cli.bundled.js ~/darq-truffle
-RUN ln -s ./node_modules/ganache-cli/build/cli.node.js ~/ganache-cli
-
 COPY wrapper.bash .
 
 ENTRYPOINT ["/usr/bin/env"]
