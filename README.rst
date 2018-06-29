@@ -70,7 +70,7 @@ And leave this terminal open as your main console. Open three different terminal
 
 - ``$ docker attach enigma_coredevelop_1`` (press enter to bring up the prompt inside the container, and press Ctrl-P Ctrl-Q to detach)
 - ``docker$ cd enigma_core/enigma-core && make``
-- ``docker$ cd bin && ./bin``
+- ``docker$ cd bin && ./app``
 
 *Surface*
 
