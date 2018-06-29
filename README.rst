@@ -63,7 +63,7 @@ And leave this terminal open as your main console. Open three different terminal
 - ``docker$ cd ~/enigma-contract && npm install &&  npm install darq-truffle@next ganache-cli``
 - ``docker$ ln -s ~/enigma-contract/node_modules/darq-truffle/build/cli.bundled.js ~/darq-truffle``
 - ``docker$ ln -s ~/enigma-contract/node_modules/ganache-cli/build/cli.node.js ~/ganache-cli``
-- ``docker$ more
+- ``docker$ ~/wrapper.bash``
 
 
 *Core*
