@@ -19,12 +19,19 @@ Requirements
 	  provides a list of hardware that supports Intel SGX, as well as a simple
 	  script to check if SGX is enabled on your system.
 
-- A host machine running Ubuntu 16.04
 - A host machine with `Linux SGX driver <https://github.com/intel/linux-sgx-driver>`_ 
   installed. Upon successful installation of the driver ``/dev/isgx`` should be
   present in the system.
 - `Docker <https://docs.docker.com/install/overview/>`_
 - `Docker Compose <https://docs.docker.com/compose/install/>`_ 
+
+Dependencies
+------------
+
+- `Core <https://github.com/enigmampc/core>`_: The Core component as it's name suggests is responsible for the operations at the core of the network, that is the code that runs inside the SGX enclave. The core includes Remote Attestation (SGX SDK), Cryptography and the Blockchain Virtual Machine (VM).
+- `Enigma's SputnikVM <https://github.com/enigmampc/sputnikvm/>`_: The Enigma's Virtual Machine that runs inside SGX is a fork from the `SputnikVM <https://github.com/ETCDEVTeam/sputnikvm>`_, an implementation of an Ethereum Virtual Machine that aims to be an efficient, pluggable virtual machine for different Ethereum-based blockchains. Enigma's VM differntiating features is that can run inside SGX, and that it does not have access to the global state.
+- `Surface <https://github.com/enigmampc/surface>`_: The Surface component is responsible for operations that are outside of SGX, acting as a bridge between the outside world and the "Core" component.
+- `Enigma Contract <https://github.com/enigmampc/enigma-contract>`_: The Enigma Contract component holds all the business logic of the Engima network in Ethereum smart contracts.
 
 Usage
 -----
