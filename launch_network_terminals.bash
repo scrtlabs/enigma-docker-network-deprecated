@@ -15,5 +15,5 @@ echo "Starting Surface..."
 xterm -geometry 120x20+600+330 \
 	  -e  "docker-compose exec surface bash -c ./wait_launch.bash"  &
 
-# When everything is ready, trigger a computation by running:
+# When everything is ready, trigger a computation by running from another terminal:
 # docker-compose exec contract bash -c "node integration/coin-mixer.js --with-register"

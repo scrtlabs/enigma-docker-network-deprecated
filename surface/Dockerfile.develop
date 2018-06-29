@@ -1,0 +1,19 @@
+FROM ubuntu:16.04 as runtime
+
+LABEL maintainer='info@enigma.co'
+
+# http://bugs.python.org/issue19846
+# > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
+ENV LANG C.UTF-8
+
+# Install Python3
+RUN apt-get update \
+  && apt-get install -y nmap python3-pip python3-dev libssl-dev \
+  && cd /usr/local/bin \
+  && ln -s /usr/bin/python3 python \
+  && pip3 install --upgrade pip
+
+COPY wait_launch.bash .
+
+ENTRYPOINT ["/usr/bin/env"]
+CMD /bin/bash

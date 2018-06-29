@@ -11,3 +11,5 @@ docker-compose exec contract bash -c "~/darq-truffle migrate --reset --network g
 echo "Starting Surface..."
 docker-compose exec surface bash -c "./wait_launch.bash" 
 
+# When everything is ready, trigger a computation by running from another terminal:
+# docker-compose exec contract bash -c "node integration/coin-mixer.js --with-register"

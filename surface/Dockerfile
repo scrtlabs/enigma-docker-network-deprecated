@@ -47,6 +47,12 @@ RUN sed -i'' -e "s/localhost/contract/g" ~/surface/src/surface/config.json
 RUN sed -i'' -e 's#\("CONTRACT_PATH": \)\(".*"\)#\1"/var/lib/built_contracts/Enigma.json"#g'  ~/surface/src/surface/config.json 
 RUN sed -i'' -e 's#\("TOKEN_PATH": \)\(".*"\)#\1"/var/lib/built_contracts/EnigmaToken.json"#g'  ~/surface/src/surface/config.json 
 
+# Tests (TMP)
+RUN sed -i'' -e "s/localhost/contract/g" ~/surface/src/tests/data/config.json
+RUN sed -i'' -e 's#\("CONTRACT_PATH": \)\(".*"\)#\1"/var/lib/built_contracts/Enigma.json"#g'  ~/surface/src/tests/data/config.json
+RUN sed -i'' -e 's#\("TOKEN_PATH": \)\(".*"\)#\1"/var/lib/built_contracts/EnigmaToken.json"#g'  ~/surface/src/tests/data/config.json
+RUN sed -i'' -e 's#\("COIN_MIXER_PATH": \)\(".*"\)#\1"/var/lib/built_contracts/CoinMixer.json"#g'  ~/surface/src/tests/data/config.json
+
 COPY wait_launch.bash .
 
 ENTRYPOINT ["/usr/bin/env"]
