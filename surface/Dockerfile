@@ -2,9 +2,8 @@
 # BUILD STAGE 1 - Start with the same image that will be used at runtime
 FROM ubuntu:16.04 as builder
 
-RUN apt-get update && apt-get install -y git openssh-client
-
 # Required for private repos, will be removed when repo is public
+RUN apt-get update && apt-get install -y git openssh-client
 ARG SSH_PRIVATE_KEY
 RUN mkdir /root/.ssh/
 RUN echo "${SSH_PRIVATE_KEY}" > /root/.ssh/id_rsa

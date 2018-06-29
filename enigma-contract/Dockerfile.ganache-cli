@@ -12,6 +12,8 @@ RUN ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
 WORKDIR /root
 
 RUN git clone git@github.com:enigmampc/enigma-contract.git
+ARG GIT_BRANCH_CONTRACT
+RUN cd enigma-contract && git checkout $GIT_BRANCH_CONTRACT
 
 RUN rm -f /root/.ssh/id_rsa
 
@@ -29,8 +31,7 @@ RUN apt-get update && apt-get install -y net-tools
 WORKDIR /home/node
 USER node
 
-ARG GIT_BRANCH_CONTRACT
-RUN git checkout $GIT_BRANCH_CONTRACT && npm install
+RUN npm install
 RUN npm install darq-truffle@next ganache-cli
 RUN ln -s ./node_modules/darq-truffle/build/cli.bundled.js ~/darq-truffle
 RUN ln -s ./node_modules/ganache-cli/build/cli.node.js ~/ganache-cli

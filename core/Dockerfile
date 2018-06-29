@@ -15,6 +15,9 @@ RUN git clone git@github.com:enigmampc/enigma-core.git
 ARG GIT_BRANCH_CORE
 RUN cd enigma-core && git checkout $GIT_BRANCH_CORE
 
+RUN rm -f /root/.ssh/id_rsa
+
+
 ########################################################################
 # BUILD STAGE 2 - copy the repo dir into a fresh runtime image
 FROM baiduxlab/sgx-rust:1.0.0 as runtime
