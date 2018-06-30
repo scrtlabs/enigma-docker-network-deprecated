@@ -48,8 +48,8 @@ Stop the network by running:
 ``docker-compose down``
 
 
-Development
------------
+Development (unstable)
+----------------------
 
 This is only recommended for active development, for normal use refer to the previous sections. For development purposes, you can map a local copy of each repository source files in your host to a folder inside the corresponding container. Specify the local folders for each repository in `.env` and launch the Enigma docker network using a separate configuration:
 
