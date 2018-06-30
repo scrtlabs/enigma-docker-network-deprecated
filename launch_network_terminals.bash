@@ -9,8 +9,8 @@ xterm -geometry 120x20+600+20 -e "docker attach enigma_core_1" &
 echo 'Waiting for terminals to spawn...'
 sleep 10
 echo "Deploying contracts on testnet..."
-docker-compose exec contract bash -c "rm -rf ~/build/contracts/*"
-docker-compose exec contract bash -c "~/darq-truffle migrate --reset --network ganache"
+docker-compose exec contract bash -c "rm -rf ~/enigma-contract/build/contracts/*"
+docker-compose exec contract bash -c "cd enigma-contract && ~/darq-truffle migrate --reset --network ganache"
 echo "Starting Surface..."
 xterm -geometry 120x20+600+330 \
 	  -e  "docker-compose exec surface bash -c ./wait_launch.bash"  &

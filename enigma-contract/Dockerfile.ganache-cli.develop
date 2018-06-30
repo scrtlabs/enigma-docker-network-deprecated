@@ -1,8 +1,12 @@
-FROM node:9 as runtime
+FROM node:10
 
 LABEL maintainer='info@enigma.co'
 
-RUN apt-get update && apt-get install -y net-tools
+RUN apt-get update && apt-get install -y sudo net-tools
+
+RUN mkdir -p /etc/sudoers.d && \
+    echo "node ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/node && \
+    chmod 0440 /etc/sudoers.d/node
 
 WORKDIR /home/node
 USER node

@@ -12,7 +12,7 @@ services:
     stdin_open: true
     tty: true
     volumes:
-        - built_contracts:/home/node/build/contracts
+        - built_contracts:/home/node/enigma-contract/build/contracts
 
   surface:
     build: 
