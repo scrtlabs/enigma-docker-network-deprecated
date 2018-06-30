@@ -1,0 +1,11 @@
+FROM python:3-stretch
+
+LABEL maintainer='info@enigma.co'
+
+WORKDIR /root
+
+COPY wait_launch.bash .
+COPY docker_config.bash .
+
+ENTRYPOINT ["/usr/bin/env"]
+CMD /bin/bash

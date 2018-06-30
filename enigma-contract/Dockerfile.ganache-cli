@@ -1,0 +1,22 @@
+FROM node:10
+
+LABEL maintainer='info@enigma.co'
+
+RUN apt-get update && apt-get install -y sudo net-tools
+
+USER node
+WORKDIR /home/node
+RUN git clone https://github.com/enigmampc/enigma-contract.git
+
+WORKDIR /home/node/enigma-contract
+
+RUN npm install
+RUN npm install darq-truffle@next ganache-cli
+RUN ln -s ~/enigma-contract/node_modules/darq-truffle/build/cli.bundled.js ~/darq-truffle
+RUN ln -s ~/enigma-contract/node_modules/ganache-cli/build/cli.node.js ~/ganache-cli
+
+WORKDIR /home/node
+COPY wrapper.bash .
+
+ENTRYPOINT ["/usr/bin/env"]
+CMD ~/wrapper.bash

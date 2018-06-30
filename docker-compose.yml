@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+
+  contract:
+    build: 
+      context: enigma-contract
+      dockerfile: Dockerfile.ganache-cli
+      args:
+        - SSH_PRIVATE_KEY
+        - GIT_BRANCH_CONTRACT=${GIT_BRANCH_CONTRACT}
+    stdin_open: true
+    tty: true
+    volumes:
+        - built_contracts:/home/node/enigma-contract/build/contracts
+
+  surface:
+    build: 
+      context: surface
+      args:
+        - SSH_PRIVATE_KEY
+        - GIT_BRANCH_SURFACE=${GIT_BRANCH_SURFACE}
+    depends_on:
+      - contract
+    stdin_open: true
+    tty: true
+    volumes:
+        - built_contracts:/var/lib/built_contracts
+    hostname: enigma_surface_${WORKER_INDEX}
+
+  core:
+    build:
+      context: core
+      args:
+        - SSH_PRIVATE_KEY
+        - GIT_BRANCH_CORE=${GIT_BRANCH_CORE}
+    stdin_open: true
+    tty: true
+    devices:
+      - "/dev/isgx:/dev/isgx"
+    expose:
+      - "5552"
+    hostname: enigma_core_${WORKER_INDEX}
+
+volumes:
+  built_contracts:
