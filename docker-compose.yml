@@ -26,6 +26,7 @@ services:
     tty: true
     volumes:
         - built_contracts:/var/lib/built_contracts
+    hostname: enigma_surface_${WORKER_INDEX}
 
   core:
     build:
@@ -39,6 +40,7 @@ services:
       - "/dev/isgx:/dev/isgx"
     expose:
       - "5552"
+    hostname: enigma_core_${WORKER_INDEX}
 
 volumes:
   built_contracts:

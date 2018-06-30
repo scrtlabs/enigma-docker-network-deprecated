@@ -44,7 +44,7 @@ RUN cd surface && \
 COPY wait_launch.bash .
 COPY docker_config.bash .
 
-RUN ~/docker_config.bash
+RUN echo './docker_config.bash' >> ~/.bashrc
 
 ENTRYPOINT ["/usr/bin/env"]
 CMD /bin/bash
