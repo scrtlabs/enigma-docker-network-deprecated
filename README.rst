@@ -36,9 +36,13 @@ Dependencies
 Usage
 -----
 
-Launch the ``Enigma Docker Network`` by running:
+Launch the ``Enigma Docker Network`` by running (everything condensed in one single terminal):
 
 ``./launch_network.bash``
+
+or, spawing one terminal per service (contract, core, surface, dapp):
+
+``./launch_network_terminals.bash``
 
 The first time that runs in your system, it will build all the required images.
 If you need to rebuild them in the future, run ``docker-compose build``.
