@@ -8,7 +8,7 @@ the unique and powerful features that the Enigma Protocol offers, and to
 provide a sandbox to start writing `secret contracts`.
 
 For more information, please refer to the 
-`Enigma Protocol Documenatation <https://enigma.co/protocol>`_.
+`Enigma Protocol Documentation <https://enigma.co/protocol>`_.
 
 Requirements
 ------------
