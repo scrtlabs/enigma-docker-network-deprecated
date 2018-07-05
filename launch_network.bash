@@ -1,5 +1,6 @@
 #!/bin/bash
 
+docker-compose build
 docker-compose up &
 echo 'Waiting for containers to start...'
 echo 'Starting core...'
