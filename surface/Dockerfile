@@ -2,6 +2,8 @@ FROM python:3.6-stretch
 
 LABEL maintainer='info@enigma.co'
 
+RUN apt-get update && apt-get install -y nmap
+
 WORKDIR /root
 RUN git clone https://github.com/enigmampc/surface.git
 
