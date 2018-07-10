@@ -1,4 +1,4 @@
-FROM python:3-stretch
+FROM python:3.6-stretch
 
 LABEL maintainer='info@enigma.co'
 
