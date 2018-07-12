@@ -12,9 +12,6 @@ RUN cd surface && \
 	pip install --no-cache-dir -r etc/requirements.txt && \
 	pip install -e .
 
-COPY wait_launch.bash .
-COPY docker_config.bash .
-
 RUN echo './docker_config.bash' >> ~/.bashrc
 
 ENTRYPOINT ["/usr/bin/env"]
