@@ -3,7 +3,7 @@
 # Alternatively: `docker-compose up -d`, but by launching it in the background, 
 # we capture the output on the current terminal & we can see the list of 
 # accounts that ganache creates (different every time)
-docker-compose up &
+docker-compose --project-name enigma up &
 echo 'Waiting for terminals to spawn...'
 sleep 10
 xterm -T 'Enigma Contract' -geometry 90x20+20+20 -e "docker attach enigma_contract_1" &
