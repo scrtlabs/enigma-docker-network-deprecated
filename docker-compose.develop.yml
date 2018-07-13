@@ -2,7 +2,7 @@ version: '3'
 
 services:
 
-  contractdevelop:
+  contract:
     build: 
       context: enigma-contract
       dockerfile: Dockerfile.ganache-cli.develop
@@ -11,20 +11,23 @@ services:
     volumes:
         - built_contracts:/home/node/enigma-contract/build/contracts
         - ${GIT_FOLDER_CONTRACT}:/home/node/enigma-contract
+    cap_add:
+        - DAC_OVERRIDE
 
-  surfacedevelop:
+  surface:
     build: 
       context: surface
       dockerfile: Dockerfile.develop
     depends_on:
-      - contractdevelop
+      - contract
     stdin_open: true
     tty: true
     volumes:
         - built_contracts:/var/lib/built_contracts
         - ${GIT_FOLDER_SURFACE}:/root/surface
+    hostname: enigma_surface_${WORKER_INDEX}
 
-  coredevelop:
+  core:
     build:
       context: core
       dockerfile: Dockerfile.develop
@@ -35,7 +38,12 @@ services:
     expose:
       - "5552"
     volumes:
-      - ${GIT_FOLDER_CORE}:/root/enigma_core
+      - ${GIT_FOLDER_CORE}:/root/enigma-core
+    hostname: enigma_core_${WORKER_INDEX}
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
 
 volumes:
   built_contracts:

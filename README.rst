@@ -55,43 +55,24 @@ Stop the network by running:
 ``docker-compose down``
 
 
-Development (unstable)
-----------------------
+Development Mode
+----------------
 
-This is only recommended for active development, for normal use refer to the previous sections. For development purposes, you can map a local copy of each repository source files in your host to a folder inside the corresponding container. Specify the local folders for each repository in `.env` and launch the Enigma docker network using a separate configuration:
+This is only recommended for active development, for normal use refer to the previous sections. For development purposes, you can map a local copy of each repository source files in your host to a folder inside the corresponding container. 
 
-``./docker-compose -f docker-compose.develop.yml up``
+- Edit the following three lines in ``.env`` to point them to your local copies for each repository:
 
-Leave this terminal open as your main console. Open three different terminals to connect to each component:
+.. code-block:: bash
 
-**Enigma Contract**
+	GIT_FOLDER_CORE=/path/to/your/core/repo
+	GIT_FOLDER_SURFACE=/path/to/your/surface/repo
+	GIT_FOLDER_CONTRACT=/path/to/your/contract/repo
 
-- ``$docker attach engima_contractdevelop_1`` (press enter to bring up the prompt inside the container, and press Ctrl-P Ctrl-Q to detach)
-- ``docker$ cd ~/enigma-contract && npm install &&  npm install darq-truffle@next ganache-cli``
-- ``docker$ ln -s ~/enigma-contract/node_modules/darq-truffle/build/cli.bundled.js ~/darq-truffle``
-- ``docker$ ln -s ~/enigma-contract/node_modules/ganache-cli/build/cli.node.js ~/ganache-cli``
-- ``docker$ ~/wrapper.bash``
+- Launch the Enigma docker network specifying the *development* mode:
 
-From yet another terminal run:
+``$ DEVELOP=1 launch_network_terminals.bash``
 
-- ``$ docker-compose -f docker-compose.develop.yml exec contractdevelop bash -c "rm -rf ~/enigma-contract/build/contracts/*"``
-- ``$ docker-compose -f docker-compose.develop.yml exec contractdevelop bash -c "cd enigma-contract && ~/darq-truffle migrate --reset --network ganache"``
+- You can then attach to any container, type Ctrl-C to stop the default running process in that container and get a bash shell.
+- When you are done you can bring down this docker network with:
 
-**Core**
-
-- ``$ docker attach enigma_coredevelop_1`` (press enter to bring up the prompt inside the container, and press Ctrl-P Ctrl-Q to detach)
-- ``docker$ cd enigma_core/enigma-core && make``
-- ``docker$ cd bin && ./app``
-
-**Surface**
-
-- ``$ docker attach enigma_surfacedevelop_1`` (press enter to bring up the prompt inside the container, and press Ctrl-P Ctrl-Q to detach)
-- ``docker$ cd /root/surface``
-- ``docker$ pip install --no-cache-dir -r etc/requirements.txt && pip install -e .``
-- ``docker$ export DEVELOP=develop && ~/docker_config.bash``
-- ``docker$ python -m surface``
-
-The docker network is now ready to accept computations. Trigger one by running:
-
-``$ docker-compose -f docker-compose.develop.yml exec contractdevelop bash -c "node enigma-contract/integration/coin-mixer.js"``
-
+``$ docker-compose -f docker-compose.develop.yml down``

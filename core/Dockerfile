@@ -17,4 +17,4 @@ RUN echo '/opt/intel/sgxpsw/aesm/aesm_service &' >> /root/.bashrc
 COPY compile_launch.bash .
 
 ENTRYPOINT ["/usr/bin/env"]
-CMD ./compile_launch.bash
+CMD ["/bin/bash","-c","./compile_launch.bash; bash"]

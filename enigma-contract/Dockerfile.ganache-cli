@@ -19,4 +19,4 @@ WORKDIR /home/node
 COPY wrapper.bash .
 
 ENTRYPOINT ["/usr/bin/env"]
-CMD ~/wrapper.bash
+CMD ["/bin/bash","-c","~/wrapper.bash; bash"]
