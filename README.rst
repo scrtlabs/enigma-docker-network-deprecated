@@ -40,19 +40,23 @@ After cloning this repository, the first time you try to run the network, it's
 recommended that you build all the images, and make sure there are no errors, by 
 running:
 
-``docker-compose build``
+``$ docker-compose build``
 
 Then, you launch the ``Enigma Docker Network`` by running either: 
 
-* ``./launch_network.bash`` (everything condensed in one single terminal)
+* ``$ ./launch_network.bash`` (everything condensed in one single terminal)
 
 or:
 
-* ``./launch_network_terminals.bash``  (spawing one terminal per service: contract, core, surface, dapp)
+* ``$ ./launch_network_terminals.bash``  (spawing one terminal per service: contract, core, surface, dapp)
+
+You can spawn additional core+surface pairs by running (where N is the desired total number of pairs, for example N=2 will spawn one additional core+surface pair):
+
+``$ ./spawn_termainals.bash N``
 
 Stop the network by running:
 
-``docker-compose down``
+``$ docker-compose down``
 
 
 Development Mode
@@ -60,7 +64,7 @@ Development Mode
 
 This is only recommended for active development, for normal use refer to the previous sections. For development purposes, you can map a local copy of each repository source files in your host to a folder inside the corresponding container. 
 
-- Edit the following three lines in ``.env`` to point them to your local copies for each repository:
+Edit the following three lines in ``.env`` to point them to your local copies for each repository:
 
 .. code-block:: bash
 
@@ -68,11 +72,16 @@ This is only recommended for active development, for normal use refer to the pre
 	GIT_FOLDER_SURFACE=/path/to/your/surface/repo
 	GIT_FOLDER_CONTRACT=/path/to/your/contract/repo
 
-- Launch the Enigma docker network specifying the *development* mode:
+Launch the Enigma docker network specifying the *development* mode:
 
-``$ DEVELOP=1 launch_network_terminals.bash``
+``$ DEVELOP=1 ./launch_network_terminals.bash``
 
-- You can then attach to any container, type Ctrl-C to stop the default running process in that container and get a bash shell.
-- When you are done you can bring down this docker network with:
+You can then attach to any container, type Ctrl-C to stop the default running process in that container and get a bash shell.
+
+You can spawn additional core+surface pairs by running (where N is the desired total number of pairs, for example N=2 will spawn one additional core+surface pair):
+
+``$ DEVELOP=1 ./spawn_termainals.bash N``
+
+When you are done you can bring down this docker network with:
 
 ``$ docker-compose -f docker-compose.develop.yml down``

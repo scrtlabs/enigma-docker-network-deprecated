@@ -9,10 +9,12 @@ services:
     stdin_open: true
     tty: true
     volumes:
-        - built_contracts:/home/node/enigma-contract/build/contracts
-        - ${GIT_FOLDER_CONTRACT}:/home/node/enigma-contract
+      - built_contracts:/home/node/enigma-contract/build/contracts
+      - ${GIT_FOLDER_CONTRACT}:/home/node/enigma-contract
     cap_add:
-        - DAC_OVERRIDE
+      - DAC_OVERRIDE
+    networks:
+      - net
 
   surface:
     build: 
@@ -23,9 +25,11 @@ services:
     stdin_open: true
     tty: true
     volumes:
-        - built_contracts:/var/lib/built_contracts
-        - ${GIT_FOLDER_SURFACE}:/root/surface
+      - built_contracts:/var/lib/built_contracts
+      - ${GIT_FOLDER_SURFACE}:/root/surface
     hostname: enigma_surface_${WORKER_INDEX}
+    networks:
+      - net
 
   core:
     build:
@@ -44,6 +48,11 @@ services:
       - SYS_PTRACE
     security_opt:
       - seccomp:unconfined
+    networks:
+      - net
+
+networks:
+    net:
 
 volumes:
   built_contracts:
