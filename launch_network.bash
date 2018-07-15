@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker-compose  --project-name enigma up &
+docker-compose up &
 echo 'Waiting for containers to start...'
 echo 'Starting core...'
 echo 'Starting enigma-contract...'
