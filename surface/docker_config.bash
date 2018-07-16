@@ -8,7 +8,7 @@ sed -i'' -e "s#\(\"IPC_HOST\": \)\(\".*\"\)#\1\"$CORE\"#g" ~/surface/src/surface
 sed -i'' -e "s#\(\"PROVIDER_URL\": \)\(\".*\"\)#\1\"http://contract:8545\"#g" ~/surface/src/surface/config.json
 sed -i'' -e 's#\("CONTRACT_PATH": \)\(".*"\)#\1"/var/lib/built_contracts/Enigma.json"#g'  ~/surface/src/surface/config.json 
 sed -i'' -e 's#\("TOKEN_PATH": \)\(".*"\)#\1"/var/lib/built_contracts/EnigmaToken.json"#g'  ~/surface/src/surface/config.json 
-sed -i'' -e "s#\(\"WORKER_ID\": \)\(\".*\"\)#\1\"$ID\"#g"  ~/surface/src/surface/config.json
+sed -i'' -e "s#\(\"WORKER_ID\": \)\(.*\)#\1$ID#g"  ~/surface/src/surface/config.json
 
 
 # Tests (TMP)
