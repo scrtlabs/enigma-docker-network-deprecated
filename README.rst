@@ -52,7 +52,7 @@ or:
 
 You can spawn additional core+surface pairs by running (where N is the desired total number of pairs, for example N=2 will spawn one additional core+surface pair):
 
-``$ ./spawn_termainals.bash N``
+``$ ./spawn_terminals.bash N``
 
 Stop the network by running:
 
@@ -80,7 +80,7 @@ You can then attach to any container, type Ctrl-C to stop the default running pr
 
 You can spawn additional core+surface pairs by running (where N is the desired total number of pairs, for example N=2 will spawn one additional core+surface pair):
 
-``$ DEVELOP=1 ./spawn_termainals.bash N``
+``$ DEVELOP=1 ./spawn_terminals.bash N``
 
 When you are done you can bring down this docker network with:
 
