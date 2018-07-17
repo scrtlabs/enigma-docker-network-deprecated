@@ -28,9 +28,10 @@ echo 'Waiting for contract to be available...'
 CONTRACT_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' enigma_contract_1)
 while :
 do
-	nc -z $CONTRACT_IP 8545
+	# nc -z $CONTRACT_IP 8545
+        curl -s $CONTRACT_IP:8545 > /dev/null
 	result=$?
-	if [[ $result -eq 0 ]]; then    
+	if [[ $result -eq 0 ]]; then
         break
     fi
     sleep 5
