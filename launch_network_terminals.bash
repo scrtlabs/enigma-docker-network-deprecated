@@ -41,7 +41,7 @@ echo "Deploying contracts on testnet..."
 docker-compose exec contract bash -c "rm -rf ~/enigma-contract/build/contracts/*"
 docker-compose exec contract bash -c "cd enigma-contract && ~/darq-truffle migrate --reset --network ganache"
 echo "Starting coin-mixer app..."
-xterm -T 'Enigma DApp' -geometry 152x20+20+330 -e "docker-compose $ARGF exec contract bash -c \"cd enigma-contract && export GANACHE_URL=http://enigma_contract_1:8545 && node integration/coin-mixer.js; bash\"" &
+xterm -T 'Enigma DApp' -geometry 152x20+20+330 -e "docker-compose $ARGF exec contract bash -c \"cd enigma-contract && node integration/coin-mixer.js --url=http://enigma_contract_1:8545; bash\"" &
 echo "Starting Surface..."
 xterm -T 'Enigma Surface' -geometry 120x20+900+80 \
 	  -e  "docker-compose $ARGF exec surface bash -c \"$SRFD ./wait_launch.bash\""  &

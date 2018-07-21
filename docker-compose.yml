@@ -7,7 +7,6 @@ services:
       context: enigma-contract
       dockerfile: Dockerfile.ganache-cli
       args:
-        - SSH_PRIVATE_KEY
         - GIT_BRANCH_CONTRACT=${GIT_BRANCH_CONTRACT}
     stdin_open: true
     tty: true
@@ -23,7 +22,7 @@ services:
     build: 
       context: surface
       args:
-        - SSH_PRIVATE_KEY
+        - SGX_MODE=${SGX_MODE}
         - GIT_BRANCH_SURFACE=${GIT_BRANCH_SURFACE}
     depends_on:
       - contract
@@ -41,7 +40,7 @@ services:
     build:
       context: core
       args:
-        - SSH_PRIVATE_KEY
+        - SGX_MODE=${SGX_MODE}
         - GIT_BRANCH_CORE=${GIT_BRANCH_CORE}
     stdin_open: true
     tty: true
