@@ -32,7 +32,41 @@ For more information, please refer to the
 - [Surface](https://github.com/enigmampc/surface): The Surface component is responsible for operations that are outside of SGX, acting as a bridge between the outside world and the "Core" component.
 - [Enigma Contract](https://github.com/enigmampc/enigma-contract): The Enigma Contract component holds all the business logic of the Enigma network in Ethereum smart contracts.
 
-## Modes
+## SGX Modes
+
+Mode | Description 
+--- | ---
+Hardware | This is the default mode, in which the `core` runs inside the SGX enclave. The host machine needs to support SGX, and have the SGX driver installed. 
+Software | Also known as **Simulation Mode**, allows for development in host machines that do not support SGX.
+
+### Configuring Hardware SGX Mode
+
+Configure the following line in `.env`:
+
+```
+SGX_MODE=HW
+```
+
+And make sure the following two lines are **not** commented out in the `core:` section of `docker-compose.yml`:
+```
+    devices:
+      - "/dev/isgx:/dev/isgx"
+```
+### Configuring Software SGX Mode
+
+Configure the following line in `.env`:
+
+```
+SGX_MODE=SW
+```
+
+And make sure the following two lines are commented out in the `core:` section of `docker-compose.yml`:
+```
+    # devices:
+    #  - "/dev/isgx:/dev/isgx"
+```
+
+## Network Modes
 
 Mode | Description | Limitations
 --- | --- | ---
