@@ -1,6 +1,8 @@
 #!/bin/bash
 
 ID=$(echo $HOSTNAME | awk -F"_" '{print $NF}')
+CORE=$(getent hosts enigma_core_$ID | awk '{ print $1 }')
+CONTRACT=$(getent hosts enigma_contract_1 | awk '{ print $1 }')
 
 while true; do
 	curl -s -m 1 enigma_core_$ID:5552
@@ -18,4 +20,4 @@ if [ "$SGX_MODE" = "SW" ]; then
 else
 	SIMUL=''
 fi
-python -m surface $SIMUL; bash
+python -m surface --dev-account=$ID --ipc-connstr=$CORE:5552 --provider-url=http://$CONTRACT:8545 $SIMUL; bash
