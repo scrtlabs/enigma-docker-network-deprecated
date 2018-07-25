@@ -14,8 +14,9 @@ RUN cd surface && \
 
 RUN echo './docker_config.bash' >> ~/.bashrc
 
+COPY wait_launch.bash .
 ARG SGX_MODE
-RUN echo "export SGX_MODE=$SGX_MODE" >> ~/.bashrc
+RUN sed -i'' "2 aSGX_MODE=$SGX_MODE" ~/wait_launch.bash
 
 ENTRYPOINT ["/usr/bin/env"]
 CMD /bin/bash

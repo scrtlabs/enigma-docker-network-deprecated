@@ -30,7 +30,6 @@ services:
     tty: true
     volumes:
         - built_contracts:/var/lib/built_contracts
-        - ./surface/wait_launch.bash:/root/wait_launch.bash:ro
         - ./surface/docker_config.bash:/root/docker_config.bash:ro
     hostname: enigma_surface_${WORKER_INDEX}
     networks:
