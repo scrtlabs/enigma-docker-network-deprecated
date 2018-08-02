@@ -25,7 +25,8 @@ xterm -T 'Enigma Contract' -geometry 90x20+20+20 -e "docker attach enigma_contra
 xterm -T 'Enigma Core' -geometry 120x20+600+20 -e "docker attach enigma_core_1" &
 echo 'Waiting for contract to be available...'
 
-CONTRACT_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' enigma_contract_1)
+# CONTRACT_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' enigma_contract_1)
+CONTRACT_IP='localhost'
 while :
 do
 	# nc -z $CONTRACT_IP 8545
