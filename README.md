@@ -166,3 +166,7 @@ Many developers can't enable SGX on their workstation. While a hosted SGX enviro
    where `n` is the account index mapped to the worker (avoid account 9 as it is reserved for the principal node), `ipc-connstr` refers to the `core` instance, and `provider-url` refers to the `contract` instance matching step #2 above. This will connect to Core, get an Intel report and register the worker.
 8. L: Check the logs of the `coin-mixer.js` script, you should see a new Register event followed by a new Task dispatched to the worker
 9. L: Repeat steps 8 and 9 for each new worker
+
+## License
+
+The Enigma Docker Network is provided under the GNU Affero General Public License v3.0 (AGPLv3). Please refer to the [License file](LICENSE.txt) for details.
