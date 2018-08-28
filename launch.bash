@@ -107,7 +107,6 @@ function launch() {
 }
 
 check_config
-exit 1
 
 # By default we run in HW mode, which can be overriden through option below
 sed -e 's/SGX_MODE=.*/SGX_MODE=HW/g' .env > .env.tmp && mv .env.tmp .env
@@ -124,7 +123,7 @@ while getopts ":dhqst" opt; do
 		q) docker-compose down
 		   exit 0;;
 		s) SIMUL=True
-		   sed -i'' -e 's/SGX_MODE=.*/SGX_MODE=SW/g' .env;;
+		   sed -e 's/SGX_MODE=.*/SGX_MODE=SW/g' .env > .env.tmp && mv .env.tmp .env;;
 		t) TERMINALS=True;;
 		\?) echo "Invalid option: -$OPTARG" >&2
 			exit 1;;
