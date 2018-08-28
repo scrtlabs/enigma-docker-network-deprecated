@@ -10,8 +10,6 @@ services:
         - GIT_BRANCH_CONTRACT=${GIT_BRANCH_CONTRACT}
     stdin_open: true
     tty: true
-    volumes:
-        - built_contracts:/home/node/enigma-contract/build/contracts
     ports:
         - "8545:8545"
     networks:
@@ -43,8 +41,6 @@ services:
         - GIT_BRANCH_CORE=${GIT_BRANCH_CORE}
     stdin_open: true
     tty: true
-    devices:
-      - "/dev/isgx:/dev/isgx"
     ports:
       - "5552:5552"
     hostname: enigma_core_${WORKER_INDEX}

@@ -1,59 +1,15 @@
 version: '3'
 
 services:
-
   contract:
     build: 
       context: enigma-contract
       dockerfile: Dockerfile.ganache-cli.develop
-    stdin_open: true
-    tty: true
     volumes:
-      - built_contracts:/home/node/enigma-contract/build/contracts
       - ${GIT_FOLDER_CONTRACT}:/home/node/enigma-contract
     cap_add:
       - DAC_OVERRIDE
-    networks:
-      - net
 
   surface:
-    build: 
-      context: surface
-      dockerfile: Dockerfile.develop
-    depends_on:
-      - contract
-    stdin_open: true
-    tty: true
     volumes:
-      - built_contracts:/var/lib/built_contracts
-      - ${GIT_FOLDER_SURFACE}:/root/surface
-    hostname: enigma_surface_${WORKER_INDEX}
-    networks:
-      - net
-
-  core:
-    build:
-      context: core
-      dockerfile: Dockerfile.develop
-    stdin_open: true
-    tty: true
-    devices:
-      - "/dev/isgx:/dev/isgx"
-    expose:
-      - "5552"
-    volumes:
-      - ${GIT_FOLDER_CORE}:/root/enigma-core
-    hostname: enigma_core_${WORKER_INDEX}
-    cap_add:
-      - SYS_PTRACE
-    security_opt:
-      - seccomp:unconfined
-    networks:
-      - net
-
-networks:
-    net:
-
-volumes:
-  built_contracts:
- 
+       - ${GIT_FOLDER_CONTRACT}/build/contracts:/var/lib/built_contracts

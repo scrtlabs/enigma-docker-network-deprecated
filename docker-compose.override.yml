@@ -1,0 +1,6 @@
+version: '3'
+
+services:
+  contract:
+    volumes:
+        - built_contracts:/home/node/enigma-contract/build/contracts
