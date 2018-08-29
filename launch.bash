@@ -70,7 +70,7 @@ function deploy_contract() {
 		popd
 	else	
 		docker-compose exec contract bash -c "rm -rf ~/enigma-contract/build/contracts/*"
-		docker-compose exec contract bash -c "cd enigma-contract && ~/darq-truffle migrate --reset --network ganache"
+		docker-compose exec contract bash -c "cd enigma-contract && darq-truffle migrate --reset --network ganache"
 	fi
 }
 
@@ -86,7 +86,7 @@ function start_surface() {
 
 function start_app() {
 	if [ $DEVELOP ]; then
-		echo 'Ready to launch you app.'
+		echo 'Ready to launch your app.'
 	else
 		echo "Starting coin-mixer app..."
 		APP_CMD="cd enigma-contract && node integration/coin-mixer.js --url=http://enigma_contract_1:8545"
@@ -137,8 +137,8 @@ if [ ! $SIMUL ]; then
 		exit 1
 	fi
 	ARGF="$ARGF -f docker-compose.hw.yml"
-	if [ ! $DEVELOP ]; then
-		ARGF="$ARGF -f docker-compose.override.yml"
-	fi
+fi
+if [ ! $DEVELOP ]; then
+	ARGF="$ARGF -f docker-compose.override.yml"
 fi
 launch

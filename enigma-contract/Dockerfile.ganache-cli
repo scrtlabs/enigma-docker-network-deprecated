@@ -4,10 +4,15 @@ LABEL maintainer='info@enigma.co'
 
 RUN apt-get update && apt-get install -y sudo net-tools
 
-RUN npm install -g darq-truffle@next ganache-cli
-
 USER node
 WORKDIR /home/node
+
+RUN mkdir ~/.npm-global
+RUN echo prefix=${HOME}/.npm-global > ~/.npmrc
+RUN echo PATH=~/.npm-global/bin:$PATH >> ~/.bashrc
+ENV PATH /home/node/.npm-global/bin:$PATH
+
+RUN npm install -g darq-truffle@next ganache-cli
 
 ARG GIT_BRANCH_CONTRACT
 RUN git clone -b $GIT_BRANCH_CONTRACT --single-branch https://github.com/enigmampc/enigma-contract.git
