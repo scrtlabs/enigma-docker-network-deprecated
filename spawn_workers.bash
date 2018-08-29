@@ -1,18 +1,34 @@
 #!/bin/bash
 
-if [[ "$DEVELOP" -eq 1 ]]; then
-    echo "Launching Docker Enigma Network in development mode..."
-    ARGF="-f docker-compose.develop.yml"
-    SRFD="~/wrapper-develop.bash &&"
-else
-    ARGF=""
-    SRFD=""
-fi
-
 if [ "$1" != "" ]; then
     NUM_WORKERS=$1
 
     if [ $NUM_WORKERS -gt 1 ]; then
+
+        # Trivial check if network is running
+        if [ -z "$(ps -o command | grep '^docker-compose' | grep up)" ]; then
+            echo "Enigma Docker Network does not seem to be up and running."
+            echo "Start Enigma Docker Network first with \"launch.bash\""
+            echo "Aborting."
+            exit 1
+        fi
+
+        ARGF="-f docker-compose.yml"
+
+        # Check if network is running in 'development' mode
+        if [ -n "$(ps -o command | grep '^docker-compose' | grep up | grep develop)" ]; then
+            ARGF="$ARGF -f docker-compose.develop.yml"
+            DEVELOP=True;
+        fi
+
+        source .env
+        if [ "$SGX_MODE" = "HW" ]; then
+            ARGF="$ARGF -f docker-compose.hw.yml"
+            if [ ! $DEVELOP ]; then
+                ARGF="$ARGF -f docker-compose.override.yml"
+            fi
+        fi
+
     	for i in $(seq 2 $NUM_WORKERS); do
             WORKER_INDEX=$i docker-compose $ARGF scale core=$i
             YCOORD=$(expr 20 + 350 \* $(expr $i - 1))

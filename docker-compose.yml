@@ -42,7 +42,7 @@ services:
     stdin_open: true
     tty: true
     ports:
-      - "5552:5552"
+      - "5552-5562:5552"
     hostname: enigma_core_${WORKER_INDEX}
     networks:
       - net
