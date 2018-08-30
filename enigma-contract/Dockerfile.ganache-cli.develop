@@ -2,7 +2,7 @@ FROM node:10
 
 LABEL maintainer='info@enigma.co'
 
-RUN apt-get update && apt-get install -y sudo net-tools
+RUN apt-get update && apt-get install -y sudo net-tools netcat
 
 RUN npm install -g darq-truffle@next ganache-cli
 
@@ -13,6 +13,7 @@ RUN mkdir -p /etc/sudoers.d && \
 WORKDIR /home/node
 USER node
 COPY wrapper.bash .
+COPY simpleHTTP.bash .
 
 ENTRYPOINT ["/usr/bin/env"]
 CMD ["/bin/bash","-c","~/wrapper.bash; bash"]

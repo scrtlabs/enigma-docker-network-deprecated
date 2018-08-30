@@ -72,6 +72,7 @@ function deploy_contract() {
 		docker-compose exec contract bash -c "rm -rf ~/enigma-contract/build/contracts/*"
 		docker-compose exec contract bash -c "cd enigma-contract && darq-truffle migrate --reset --network ganache"
 	fi
+	docker-compose exec -d contract bash -c "./simpleHTTP.bash"
 }
 
 function start_surface() {
