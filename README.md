@@ -51,13 +51,7 @@ Development | This is the *development* version geared for developers of secret 
 
 ## Usage
 
-After cloning this repository, the first time you try to run the network, it's 
-recommended that you build all the images, and make sure there are no errors, by 
-running:
-
-``$ docker-compose build``
-
-Then, you launch the ``Enigma Docker Network`` by running: 
+After cloning this repository, launch the ``Enigma Docker Network`` by running: 
 
 ``$ ./launch.bash`` 
 
