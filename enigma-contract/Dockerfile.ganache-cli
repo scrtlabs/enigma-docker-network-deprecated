@@ -23,7 +23,8 @@ RUN npm install
 
 WORKDIR /home/node
 COPY wrapper.bash .
-COPY simpleHTTP.bash .
+COPY simpleHTTP1.bash .
+COPY simpleHTTP2.bash .
 
 ENTRYPOINT ["/usr/bin/env"]
 CMD ["/bin/bash","-c","~/wrapper.bash; bash"]
