@@ -2,7 +2,7 @@ FROM node:10
 
 LABEL maintainer='info@enigma.co'
 
-RUN apt-get update && apt-get install -y sudo net-tools
+RUN apt-get update && apt-get install -y sudo net-tools netcat
 
 USER node
 WORKDIR /home/node
@@ -23,6 +23,8 @@ RUN npm install
 
 WORKDIR /home/node
 COPY wrapper.bash .
+COPY simpleHTTP1.bash .
+COPY simpleHTTP2.bash .
 
 ENTRYPOINT ["/usr/bin/env"]
 CMD ["/bin/bash","-c","~/wrapper.bash; bash"]

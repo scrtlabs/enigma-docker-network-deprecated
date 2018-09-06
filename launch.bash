@@ -7,6 +7,7 @@ function help() {
 	echo "	$0 [-t] [-d] [-h] [-s] [-q]"
 	echo
 	echo "Options:"
+	echo "  -c    Test enigma network with sample coin-mixer contract."
 	echo "  -d    Run in development mode."
 	echo "  -h    Show this help."
 	echo "  -t    Spawn a terminal for every container/process."
@@ -66,12 +67,20 @@ function deploy_contract() {
 		source .env
 		pushd $GIT_FOLDER_CONTRACT
 		rm -rf build/contracts/*
-		darq-truffle migrate --reset --network development
+		darq-truffle migrate --reset --network development -f 1 --to 2
+		if [ $COINMIXER ]; then
+			darq-truffle migrate --reset --network development -f 3 --to 3
+		fi
 		popd
 	else	
 		docker-compose exec contract bash -c "rm -rf ~/enigma-contract/build/contracts/*"
-		docker-compose exec contract bash -c "cd enigma-contract && darq-truffle migrate --reset --network ganache"
+		docker-compose exec contract bash -c "cd enigma-contract && darq-truffle migrate --reset --network ganache -f 1 --to 2"
+		if [ $COINMIXER ]; then
+			docker-compose exec contract bash -c "cd enigma-contract && darq-truffle migrate --reset --network development -f 3 --to 3"
+		fi
 	fi
+	docker-compose exec -d contract bash -c "./simpleHTTP1.bash"
+	docker-compose exec -d contract bash -c "./simpleHTTP2.bash"
 }
 
 function start_surface() {
@@ -85,9 +94,7 @@ function start_surface() {
 }
 
 function start_app() {
-	if [ $DEVELOP ]; then
-		echo 'Ready to launch your app.'
-	else
+	if [ $COINMIXER ]; then
 		echo "Starting coin-mixer app..."
 		APP_CMD="cd enigma-contract && node integration/coin-mixer.js --url=http://enigma_contract_1:8545"
 		if [ $TERMINALS ]; then
@@ -95,6 +102,8 @@ function start_app() {
 		else
 			docker-compose exec -d contract bash -c "$APP_CMD"
 		fi
+	else
+		echo 'Ready to launch your app.'
 	fi
 }
 
@@ -111,10 +120,12 @@ check_config
 # By default we run in HW mode, which can be overriden through option below
 sed -e 's/SGX_MODE=.*/SGX_MODE=HW/g' .env > .env.tmp && mv .env.tmp .env
 SIMUL=''
+COINMIXER=''
 ARGF="-f docker-compose.yml"
 
 while getopts ":dhqst" opt; do
-	case $opt in 
+	case $opt in
+		c) COINMIXER=True;; 
 		d) check_contractfolder
 		   ARGF="$ARGF -f docker-compose.develop.yml"
 		   DEVELOP=True;;
