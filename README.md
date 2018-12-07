@@ -12,7 +12,7 @@ For more information, please refer to the
 ## Requirements
 
 - [Docker](https://docs.docker.com/install/overview/)
-- [Docker Compose](https://docs.docker.com/compose/install/) 
+- [Docker Compose](https://docs.docker.com/compose/install/) version 1.23.2 or higher. Please be aware that docker introduced a bug in 1.23.0 (also present in 1.23.1) that appended random strings to container names that causes this network configuration to break.
 
 If you want to run SGX in hardware mode, in the same way it will be run in production, you will also need:
 
