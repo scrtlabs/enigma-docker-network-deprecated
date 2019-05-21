@@ -1,3 +1,6 @@
+# This repository has been deprecated in favor of a newer version available at https://github.com/enigmampc/discovery-docker-network/
+
+
 # Enigma Docker Network
 
 The Enigma Docker Network is the first release of the Enigma Protocol in a 
