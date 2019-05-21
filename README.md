@@ -1,3 +1,6 @@
+# This repository has been deprecated in favor of a newer version available at https://github.com/enigmampc/discovery-docker-network/
+
+
 # Enigma Docker Network
 
 The Enigma Docker Network is the first release of the Enigma Protocol in a 
@@ -97,5 +100,3 @@ the Free Software Foundation, either version 3 of the License, or (at your optio
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more details.
 
 You should have received a [copy](LICENSE) of the GNU Affero General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-
